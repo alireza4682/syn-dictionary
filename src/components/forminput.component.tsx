@@ -3,7 +3,8 @@ export type formInput = {
   [x: string]: any;
 };
 
-const FormInput = ({ word, ...otherProps }: formInput) => {
-  return <div>{word && <input {...otherProps}></input>}</div>;
+const FormInput = (props: formInput) => {
+  const { word, ...otherProps } = props;
+  return <div>{word ? <input {...otherProps} /> : null}</div>;
 };
 export default FormInput;
