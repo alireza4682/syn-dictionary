@@ -1,47 +1,25 @@
-import React, { useState } from "react";
-type syn = {
-  score: number;
-  word: string;
-};
+import { useState } from "react";
+import Card from "./components/card.component";
+
 function App() {
-  const [state, setstate] = useState("");
-  const [syn, setsyn] = useState<syn[]>([]);
-  const [isloadig, setisloading] = useState(false);
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setstate(e.target.value);
+  const [word, setWord] = useState("");
   const fetchsyns = (word: string) => {
-    setisloading(true);
-    fetch(`https://api.datamuse.com/words?rel_syn=${state}`)
-      .then((res) => res.json())
-      .then(setsyn)
-      .then(() => setisloading(false));
+    fetch(`https://api.datamuse.com/words?rel_syn=${word}`).then((res) =>
+      res.json()
+    );
   };
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchsyns(state);
+    fetchsyns(word);
   };
-  const onClickSyn = (newWord: string) => {
-    setstate(newWord);
-    fetchsyns(newWord);
-  };
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setWord(e.target.value);
   return (
-    <div className="App">
+    <div className="flex justify-center bg-zinc-100 h-screen items-center">
       <form onSubmit={onSubmitHandler}>
-        <label>word-search</label>
-        <input value={state} onChange={onChangeHandler} id="word-input"></input>
-        <button>SEARCH</button>
+        <input onChange={onChangeHandler}>Search-Word</input>
       </form>
-      {isloadig ? (
-        <div>loading...</div>
-      ) : (
-        <ul>
-          {syn.map((s) => (
-            <li key={s.word} onClick={() => onClickSyn(s.word)}>
-              {s.word}
-            </li>
-          ))}
-        </ul>
-      )}
+      <Card />
     </div>
   );
 }
