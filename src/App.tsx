@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Card from "./components/card.component";
+import { WordContext } from "./context/word.contex";
 
 function App() {
-  const [word, setWord] = useState("");
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setWord(e.target.value);
+  const { word } = useContext(WordContext);
   return (
     <div className="flex justify-center bg-zinc-100 h-screen items-center">
-      <input onChange={onChangeHandler}></input>
       <Card />
     </div>
   );

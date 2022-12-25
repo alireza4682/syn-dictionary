@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { WordContext } from "../context/word.contex";
 
 export type syn = {
   score: number;
@@ -6,7 +7,7 @@ export type syn = {
 };
 
 const Card = () => {
-  const [word, setWord] = useState("");
+  const { word, setWord } = useContext(WordContext);
   const [syn, setSyn] = useState<syn[]>([]);
   const [isloadig, setIsloading] = useState(false);
 
@@ -29,6 +30,7 @@ const Card = () => {
     setWord(newWord);
     fetchsyns(newWord);
   };
+
   return (
     <div className=" items-center text-center w-36 rounded-bg p-4 m-3">
       <form onSubmit={onSubmitHandler}>
