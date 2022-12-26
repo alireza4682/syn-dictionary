@@ -1,11 +1,13 @@
-import { createContext, ReactNode, useState, FC } from "react";
+import { createContext, FC, Reducer, useReducer } from "react";
+import { createAction } from "../utils/reducer.util";
 
-export const WordContext = createContext<{
-  word: string;
-  setWord: React.Dispatch<React.SetStateAction<string>>;
-}>({
-  word: "" as string,
+export const WordContext = createContext({
+  word: "",
   setWord: () => null,
+  syn: [],
+  setSyn: () => null,
+  isLoadign: false,
+  setIsLoading: () => null,
 });
 
 type stateType = {
@@ -21,14 +23,44 @@ const WORD_ACTION_TYPES = {
   SET_ISlOADING: "SET_ISlOADING",
 };
 
-const wordReducer = (state: stateType, action) => {
-  const { word, syn, isLoading } = state;
+const wordReducer: Reducer<stateType, any> = (state, action) => {
   const { type, payload } = action;
+
+  switch (type) {
+    case WORD_ACTION_TYPES.SET_WORD:
+      return { ...state, payload };
+    case WORD_ACTION_TYPES.SET_SYN:
+      return { ...state, payload };
+    case WORD_ACTION_TYPES.SET_ISlOADING:
+      return { ...state, payload };
+    default:
+      throw new Error(`unhandled type ${type}`);
+  }
 };
 
-export const WordProvider: FC<ReactNode> = ({ children }: any) => {
-  const [word, setWord] = useState(INITIAL_WORD);
-  const value = { word, setWord };
+export const WordProvider: FC = ({ children }: any) => {
+  const [{ word, syn, isLoading }, dispatch] = useReducer(
+    wordReducer,
+    INITIAL_WORD
+  );
+
+  const setWord = (word: string) => {
+    const newWord = word;
+    const payload = {
+      word: newWord,
+    };
+    dispatch(createAction(WORD_ACTION_TYPES.SET_WORD, payload));
+  };
+
+  const value = {
+    word,
+    setWord,
+    syn,
+    setSyn,
+    isLoading,
+    setIsLoading,
+  };
+
   return <WordContext.Provider value={value}>{children}</WordContext.Provider>;
 };
 
