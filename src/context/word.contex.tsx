@@ -1,11 +1,18 @@
 import React, { createContext, useState } from "react";
-
+export type synType = {
+  score: number;
+  word: string;
+};
 export const WordContext = createContext<{
   word: string;
   setWord: React.Dispatch<React.SetStateAction<string>>;
 }>({
-  word: "" as string,
+  word: "",
   setWord: () => null,
+  isLoading: boolean,
+  setIsloading: () => null,
+  syn: [],
+  setSyn: () => null,
 });
 
 const INITIAL_WORD = "";

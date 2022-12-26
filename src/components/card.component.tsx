@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { WordContext } from "../context/word.contex";
-import { synType } from "../App";
+import { synType } from "../context/word.contex";
 
 const Card = (syn: synType[]) => {
   const { word, setWord } = useContext(WordContext);

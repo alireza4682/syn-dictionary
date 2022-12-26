@@ -1,11 +1,7 @@
 import { useContext, useState } from "react";
 import Card from "./components/card.component";
 import { WordContext } from "./context/word.contex";
-
-export type synType = {
-  score: number;
-  word: string;
-};
+import { synType } from "./context/word.contex";
 
 function App() {
   const { word, setWord } = useContext(WordContext);
