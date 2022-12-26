@@ -1,31 +1,12 @@
-<<<<<<< HEAD
-import React, { createContext, useState } from "react";
-export type synType = {
-  score: number;
-  word: string;
-};
-export const WordContext = createContext<{
-  word: string;
-  setWord: React.Dispatch<React.SetStateAction<string>>;
-}>({
-  word: "",
-  setWord: () => null,
-  isLoading: boolean,
-  setIsloading: () => null,
-  syn: [],
-  setSyn: () => null,
-=======
 import { createContext, FC, Reducer, useReducer } from "react";
 import { createAction } from "../utils/reducer.util";
 
 export const WordContext = createContext({
   word: "",
-  setWord: () => null,
-  syn: [],
-  setSyn: () => null,
-  isLoadign: false,
+  setWord: async () => null,
+  syn: [] as string[],
+  isLoading: false,
   setIsLoading: () => null,
->>>>>>> dffa7fd586cf7bc5474746393bb1f98d339ec2f1
 });
 
 type stateType = {
@@ -37,7 +18,6 @@ const INITIAL_WORD: stateType = { word: "", syn: [], isLoading: false };
 
 const WORD_ACTION_TYPES = {
   SET_WORD: "SET_WORD",
-  SET_SYN: "SET_SYN",
   SET_ISlOADING: "SET_ISlOADING",
 };
 
@@ -47,8 +27,7 @@ const wordReducer: Reducer<stateType, any> = (state, action) => {
   switch (type) {
     case WORD_ACTION_TYPES.SET_WORD:
       return { ...state, payload };
-    case WORD_ACTION_TYPES.SET_SYN:
-      return { ...state, payload };
+
     case WORD_ACTION_TYPES.SET_ISlOADING:
       return { ...state, payload };
     default:
@@ -62,19 +41,29 @@ export const WordProvider: FC = ({ children }: any) => {
     INITIAL_WORD
   );
 
-  const setWord = (word: string) => {
+  const setIsLoading = (isLoading: boolean) => {
+    dispatch(createAction(WORD_ACTION_TYPES.SET_ISlOADING, isLoading));
+  };
+
+  const setWord = async (word: string) => {
+    setIsLoading(true);
     const newWord = word;
+    const response = await fetch(
+      `https://api.datamuse.com/words?rel_syn=${word}`
+    );
+    const newSyn = await response.json();
     const payload = {
       word: newWord,
+      syn: newSyn,
     };
     dispatch(createAction(WORD_ACTION_TYPES.SET_WORD, payload));
+    setIsLoading(false);
   };
 
   const value = {
     word,
     setWord,
     syn,
-    setSyn,
     isLoading,
     setIsLoading,
   };
