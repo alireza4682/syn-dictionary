@@ -1,26 +1,20 @@
 import { useContext, useState } from "react";
 import Card from "./components/card.component";
 import { WordContext } from "./context/word.contex";
-import { synType } from "./context/word.contex";
 
 function App() {
-  const { word, setWord } = useContext(WordContext);
+  const { word, setWord, setSyn, isLoading, setIsLoading } =
+    useContext(WordContext);
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWord(e.target.value);
-  const [syn, setSyn] = useState<synType[]>([]);
-  const [isloadig, setIsloading] = useState(false);
-
-  const fetchsyns = (word: string) => {
-    setIsloading(true);
-    fetch(`https://api.datamuse.com/words?rel_syn=${word}`)
-      .then((res) => res.json())
-      .then(setSyn)
-      .then(() => setIsloading(false));
   };
-  const onSubmitHandler = (e: React.FormEvent) => {
+
+  const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    fetchsyns(word);
+    setIsLoading(true);
+    await setSyn(word);
+    setIsLoading(false);
   };
   return (
     <div className="flex justify-center bg-zinc-100 h-screen items-center">
@@ -37,11 +31,7 @@ function App() {
             <button className="text-center bg-blue-500 rounded">SEARCH</button>
           </div>
         </form>
-        {isloadig ? (
-          <div className="bg-red-600">loading...</div>
-        ) : (
-          <Card {...syn} />
-        )}
+        {isLoading ? <div className="bg-red-600">loading...</div> : <Card />}
       </div>
     </div>
   );

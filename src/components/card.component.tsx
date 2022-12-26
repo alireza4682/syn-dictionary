@@ -1,13 +1,13 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { WordContext } from "../context/word.contex";
 import { synType } from "../context/word.contex";
 
-const Card = (syn: synType[]) => {
-  const { word, setWord } = useContext(WordContext);
+const Card = () => {
+  const { syn, setSyn, setWord } = useContext(WordContext);
 
   const onClickSyn = (newWord: string) => {
     setWord(newWord);
-    fetchsyns(newWord); //TODO add this to contex so we can access it from here!
+    setSyn(newWord);
   };
 
   return (
