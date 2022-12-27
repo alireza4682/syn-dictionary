@@ -1,14 +1,14 @@
-import { createContext, FC, Reducer, useReducer } from "react";
+import { createContext, FC, ReactNode, Reducer, useReducer } from "react";
 import { createAction } from "../utils/reducer.util";
 
-export const WordContext = createContext({
-  word: "",
-  setWord: (_word: string) => {},
-  syn: [] as synType[],
-  setSyn: async (_word: string) => {},
-  isLoading: false,
-  setIsLoading: (_isLoading: boolean) => {},
-});
+type WordContextType = {
+  word: string;
+  setWord: (word: string) => void;
+  syn: synType[];
+  setSyn: (word: string) => Promise<void>;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+};
 
 export type synType = {
   word: string;
@@ -20,6 +20,20 @@ type stateType = {
   syn: synType[];
   isLoading: boolean;
 };
+
+interface Props {
+  children?: ReactNode;
+}
+
+export const WordContext = createContext<WordContextType>({
+  word: "",
+  setWord: () => {},
+  syn: [],
+  setSyn: async () => {},
+  isLoading: false,
+  setIsLoading: () => {},
+});
+
 const INITIAL_WORD: stateType = { word: "", syn: [], isLoading: false };
 
 const WORD_ACTION_TYPES = {
@@ -43,7 +57,7 @@ const wordReducer: Reducer<stateType, any> = (state, action) => {
   }
 };
 
-export const WordProvider: FC = ({ children }: any) => {
+export const WordProvider: FC<Props> = ({ children }) => {
   const [{ word, syn, isLoading }, dispatch] = useReducer(
     wordReducer,
     INITIAL_WORD

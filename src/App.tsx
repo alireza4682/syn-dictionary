@@ -24,6 +24,7 @@ function App() {
             <label>word-search</label>
             <input
               className="rounded text-center bg-white text-black"
+              type="text"
               value={word}
               onChange={onChangeHandler}
               id="word-input"
