@@ -20,7 +20,7 @@ type stateType = {
   syn: synType[];
   isLoading: boolean;
 };
-const INITIAL_WORD: stateType = { word: "fast", syn: [], isLoading: false };
+const INITIAL_WORD: stateType = { word: "", syn: [], isLoading: false };
 
 const WORD_ACTION_TYPES = {
   SET_WORD: "SET_WORD",
@@ -82,5 +82,3 @@ export const WordProvider: FC = ({ children }: any) => {
 
   return <WordContext.Provider value={value}>{children}</WordContext.Provider>;
 };
-
-// TODO write with useReducer
