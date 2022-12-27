@@ -1,3 +1,5 @@
+//TODO replace context with Redux
+
 import { createContext, FC, ReactNode, Reducer, useReducer } from "react";
 import { createAction } from "../utils/reducer.util";
 
