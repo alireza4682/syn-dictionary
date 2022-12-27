@@ -14,14 +14,10 @@ const fetchSyns = createAsyncThunk("syn/fetchSyns", async (word: string) => {
 
 const wordSlice = createSlice({
   name: "word",
-  initialState: { word: "", syn: [] as synType[] },
+  initialState: { word: "", syn: [] as synType[], isLoading: false },
   reducers: {
     setWord: (state, action) => {
       return (state.word = action.payload);
-    },
-    setSyn: (state, action) => {
-      const syn = fetchSyns(action.payload);
-      return (state.syn = syn);
     },
   },
 });
