@@ -1,12 +1,14 @@
 import Card from "./components/card.component";
 import { setWord } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
+import store from "../store/store";
 function App() {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWord(e.target.value);
+    const word = useSelector(store);
+    const dispatch = useDispatch();
+    dispatch(setWord(e.target.value));
   };
-  const word = useSelector((state) => state.word);
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
   };
