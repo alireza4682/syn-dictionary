@@ -23,7 +23,7 @@ const wordSlice = createSlice({
   initialState: { word: "", syn: [], isLoading: false } as stateType,
   reducers: {
     setWord: (state, action) => {
-      return (state.word = action.payload);
+      state.word = action.payload;
     },
   },
 });

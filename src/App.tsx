@@ -6,8 +6,9 @@ import { RootState } from "../store/store";
 
 function App() {
   const word = useSelector((store: RootState) => store.word.word);
+  const dispatch = useDispatch();
+
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const dispatch = useDispatch();
     dispatch(setWord(e.target.value));
   };
   const onSubmitHandler = async (e: React.FormEvent) => {
