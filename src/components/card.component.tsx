@@ -1,13 +1,17 @@
-import { setWord } from "../../store/slices/word.slice";
+import { useSelector } from "react-redux";
+import { setWord, fetchSyns } from "../../store/slices/word.slice";
+import { RootState, useAppDispatch } from "../../store/store";
 
 const Card = () => {
+  const dispatch = useAppDispatch();
   const onClickSyn = (newWord: string) => {
-    setWord(newWord);
+    dispatch(setWord(newWord));
+    dispatch(fetchSyns(newWord));
   };
-
+  const syn = useSelector((state: RootState) => state.word.syn);
   return (
     <div>
-      {/* <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
+      <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
         {syn.map((s) => (
           <li
             className="p-2 m-2 border-t-2"
@@ -17,7 +21,7 @@ const Card = () => {
             {s.word}
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };

@@ -1,18 +1,19 @@
 import Card from "./components/card.component";
-import { setWord } from "../store/slices/word.slice";
+import { setWord, fetchSyns } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
 
 function App() {
   const word = useSelector((store: RootState) => store.word.word);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setWord(e.target.value));
   };
-  const onSubmitHandler = async (e: React.FormEvent) => {
+  const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    dispatch(fetchSyns(word));
   };
   return (
     <div className="flex justify-center bg-zinc-100 h-screen items-center">

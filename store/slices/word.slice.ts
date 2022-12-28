@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export type synType = {
   word: string;
@@ -11,12 +11,15 @@ type stateType = {
   isLoading: boolean;
 };
 
-const fetchSyns = async (word: string) => {
-  const response = await fetch(
-    `https://api.datamuse.com/words?rel_syn=${word}`
-  );
-  return (await response.json()) as synType[];
-};
+export const fetchSyns = createAsyncThunk(
+  "word/setSyn",
+  async (word: string) => {
+    const response = await fetch(
+      `https://api.datamuse.com/words?rel_syn=${word}`
+    );
+    return (await response.json()) as synType[];
+  }
+);
 
 const wordSlice = createSlice({
   name: "word",
@@ -25,6 +28,15 @@ const wordSlice = createSlice({
     setWord: (state, action) => {
       state.word = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchSyns.fulfilled, (state, action) => {
+      state.syn = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchSyns.pending, (state, action) => {
+      state.isLoading = true;
+    });
   },
 });
 
