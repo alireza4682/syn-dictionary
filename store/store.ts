@@ -3,8 +3,9 @@ import wordReducer from "./slices/word.slice";
 
 const store = configureStore({
   reducer: {
-    wordReducer,
+    word: wordReducer,
   },
 });
-
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 export default store;

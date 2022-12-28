@@ -2,10 +2,11 @@ import Card from "./components/card.component";
 import { setWord } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import store from "../store/store";
+import { RootState } from "../store/store";
+
 function App() {
+  const word = useSelector((store: RootState) => store.word.word);
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const word = useSelector(store);
     const dispatch = useDispatch();
     dispatch(setWord(e.target.value));
   };
@@ -23,7 +24,7 @@ function App() {
               type="text"
               value={word}
               onChange={onChangeHandler}
-              id="word-input"
+              id="word"
             ></input>
             <button className="text-center bg-blue-500 rounded">SEARCH</button>
           </div>
