@@ -1,20 +1,14 @@
-import { useContext, useState } from "react";
 import Card from "./components/card.component";
-import { WordContext } from "./context/word.contex";
+import { setWord } from "../store/slices/word.slice";
+import { useSelector } from "react-redux";
 
 function App() {
-  const { word, setWord, setSyn, isLoading, setIsLoading } =
-    useContext(WordContext);
-
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWord(e.target.value);
   };
-
+  const word = useSelector((state) => state.word);
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    await setSyn(word);
-    setIsLoading(false);
   };
   return (
     <div className="flex justify-center bg-zinc-100 h-screen items-center">
@@ -32,7 +26,7 @@ function App() {
             <button className="text-center bg-blue-500 rounded">SEARCH</button>
           </div>
         </form>
-        {isLoading ? <div className="bg-red-600">loading...</div> : <Card />}
+        <Card />
       </div>
     </div>
   );

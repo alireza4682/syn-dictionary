@@ -1,17 +1,13 @@
-import { useContext } from "react";
-import { WordContext } from "../context/word.contex";
+import { setWord } from "../../store/slices/word.slice";
 
 const Card = () => {
-  const { syn, setSyn, setWord } = useContext(WordContext);
-
   const onClickSyn = (newWord: string) => {
     setWord(newWord);
-    setSyn(newWord);
   };
 
   return (
     <div>
-      <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
+      {/* <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
         {syn.map((s) => (
           <li
             className="p-2 m-2 border-t-2"
@@ -21,7 +17,7 @@ const Card = () => {
             {s.word}
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
