@@ -16,15 +16,17 @@ const Card = () => {
         <div>LOADING...</div>
       ) : (
         <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
-          {syn.map((s) => (
-            <li
-              className="p-2 m-2 border-t-2"
-              key={s.word}
-              onClick={() => onClickSyn(s.word)}
-            >
-              {s.word}
-            </li>
-          ))}
+          {syn
+            .filter((s, idx) => idx < 5)
+            .map((s) => (
+              <li
+                className="p-2 m-2 border-t-2"
+                key={s.word}
+                onClick={() => onClickSyn(s.word)}
+              >
+                {s.word}
+              </li>
+            ))}
         </ul>
       )}
     </div>
