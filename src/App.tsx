@@ -3,17 +3,17 @@ import { setWord, fetchSyns, synType } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { addCard } from "../store/slices/card.slice";
 
 function App() {
   const word = useSelector((store: RootState) => store.word.word);
   const syn = useSelector((store: RootState) => store.word.syn);
+
   const dispatch = useAppDispatch();
-  const [state, setState] = useState<synType[][]>([]);
 
   useEffect(() => {
-    setState(state.concat([syn]));
-    console.log(state);
+    addCard(syn);
   }, [syn]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,10 +39,7 @@ function App() {
             <button className="text-center bg-blue-500 rounded">SEARCH</button>
           </div>
         </form>
-        {/* <Card /> */}
-        {state.map((e) => (
-          <Card key={state.indexOf(e)} />
-        ))}
+        <Card />
       </div>
     </div>
   );
