@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import store, { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
 import { useEffect } from "react";
-import { addCard } from "../store/slices/card.slice";
+import { addCard, removeCard } from "../store/slices/card.slice";
 import CardsContainer from "./components/cardsContainer.component";
 
 function App() {
@@ -15,6 +15,9 @@ function App() {
 
   useEffect(() => {
     dispatch(addCard(syn));
+    return () => {
+      removeCard(syn);
+    };
   }, [syn]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

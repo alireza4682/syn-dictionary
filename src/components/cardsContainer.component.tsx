@@ -4,14 +4,12 @@ import { RootState, useAppDispatch } from "../../store/store";
 import Card from "./card.component";
 
 const CardsContainer = () => {
-  const dispatch = useAppDispatch();
-
   const cards = useSelector((store: RootState) => store.card.cards);
 
   return (
-    <div>
+    <div className="flex flext-row">
       {cards.map((card: oneCardType) => (
-        <Card {...card} key={card.id} />
+        <Card syn={card.syn} id={card.id} key={card.id} />
       ))}
     </div>
   );
