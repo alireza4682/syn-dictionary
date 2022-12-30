@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type cardsType = {
+export type cardsType = {
   card: {
     word: string;
     score: number;
@@ -8,12 +8,20 @@ type cardsType = {
   id: number;
 }[];
 
+export type oneCardType = {
+  card: {
+    word: string;
+    score: number;
+  }[];
+  id: number;
+};
+
 const cardSlice = createSlice({
   name: "card",
-  initialState: { cards: [] as cardsType },
+  initialState: { cards: [{ card: {}, id: 0 }] as cardsType },
   reducers: {
     addCard: (state, action) => {
-      state.cards.push(action.payload);
+      state.cards.push({ card: action.payload, id: state.cards.length });
     },
     removeCard: (state, action) => {
       state.cards.filter((item) => item.id === action.payload);

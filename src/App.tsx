@@ -1,10 +1,11 @@
 import Card from "./components/card.component";
 import { setWord, fetchSyns, synType } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../store/store";
+import store, { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
 import { useEffect } from "react";
 import { addCard } from "../store/slices/card.slice";
+import CardContainer from "./components/cardsContainer.component";
 
 function App() {
   const word = useSelector((store: RootState) => store.word.word);
@@ -13,7 +14,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    addCard(syn);
+    dispatch(addCard(syn));
   }, [syn]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +40,7 @@ function App() {
             <button className="text-center bg-blue-500 rounded">SEARCH</button>
           </div>
         </form>
-        <Card />
+        <CardContainer />
       </div>
     </div>
   );
