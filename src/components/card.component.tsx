@@ -3,8 +3,8 @@ import { oneCardType } from "../../store/slices/card.slice";
 import { setWord, fetchSyns, synType } from "../../store/slices/word.slice";
 import { RootState, useAppDispatch } from "../../store/store";
 
-const Card = (cardWithId: oneCardType) => {
-  const { card, id } = cardWithId;
+const Card = (card: oneCardType) => {
+  const { syn } = card;
   const dispatch = useAppDispatch();
   const isLoading = useSelector((state: RootState) => state.word.isLoading);
   const onClickSyn = (newWord: string) => {
@@ -20,7 +20,7 @@ const Card = (cardWithId: oneCardType) => {
           <div>LOADING...</div>
         ) : (
           <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
-            {card
+            {syn
               .filter((item, idx) => idx < 5)
               .map((s) => (
                 <li

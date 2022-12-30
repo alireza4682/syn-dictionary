@@ -5,7 +5,7 @@ import store, { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
 import { useEffect } from "react";
 import { addCard } from "../store/slices/card.slice";
-import CardContainer from "./components/cardsContainer.component";
+import CardsContainer from "./components/cardsContainer.component";
 
 function App() {
   const word = useSelector((store: RootState) => store.word.word);
@@ -40,7 +40,7 @@ function App() {
             <button className="text-center bg-blue-500 rounded">SEARCH</button>
           </div>
         </form>
-        <CardContainer />
+        <CardsContainer />
       </div>
     </div>
   );
