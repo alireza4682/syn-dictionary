@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { oneCardType } from "../../store/slices/card.slice";
-import { RootState, useAppDispatch } from "../../store/store";
+import { RootState } from "../../store/store";
 import Card from "./card.component";
 
 const CardsContainer = () => {
@@ -9,7 +9,7 @@ const CardsContainer = () => {
   return (
     <div className="flex flext-row">
       {cards.map((card: oneCardType) => (
-        <Card syn={card.syn} id={card.id} key={card.id} />
+        <Card {...card} key={card.id} />
       ))}
     </div>
   );

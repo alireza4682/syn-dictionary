@@ -1,7 +1,7 @@
 import Card from "./components/card.component";
-import { setWord, fetchSyns, synType } from "../store/slices/word.slice";
+import { setWord, fetchSyns } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
-import store, { useAppDispatch } from "../store/store";
+import { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
 import { useEffect } from "react";
 import { addCard, removeCard } from "../store/slices/card.slice";

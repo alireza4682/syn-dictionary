@@ -13,31 +13,27 @@ const Card = (card: oneCardType) => {
   };
 
   return (
-    <div className="">
-      <div className="">x</div>
-      <div>
-        {isLoading ? (
-          <div>LOADING...</div>
-        ) : (
-          <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
-            {Array.isArray(syn) ? (
-              syn
-                .filter((item, idx) => idx < 5)
-                .map((s) => (
-                  <li
-                    className="p-2 m-2 border-t-2"
-                    key={s.word}
-                    onClick={() => onClickSyn(s.word)}
-                  >
-                    {s.word}
-                  </li>
-                ))
-            ) : (
-              <div></div>
-            )}
-          </ul>
-        )}
-      </div>
+    <div>
+      <div>{useSelector((store: RootState) => store.word.word)}</div>
+      {
+        <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
+          {Array.isArray(syn) ? (
+            syn
+              .filter((item, idx) => idx < 5)
+              .map((s) => (
+                <li
+                  className="p-2 m-2 border-t-2"
+                  key={s.word}
+                  onClick={() => onClickSyn(s.word)}
+                >
+                  {s.word}
+                </li>
+              ))
+          ) : (
+            <div></div>
+          )}
+        </ul>
+      }
     </div>
   );
 };
