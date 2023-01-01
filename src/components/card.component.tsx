@@ -15,7 +15,7 @@ const Card = (card: oneCardType) => {
       {isLoading ? (
         <div>loading...</div>
       ) : (
-        <div className="flex flex-row">
+        <div className="flex flex-col items-center justify-center">
           <h2>{headWord}</h2>
           <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
             {Array.isArray(syn) ? (
@@ -23,7 +23,7 @@ const Card = (card: oneCardType) => {
                 .filter((_, idx) => idx < 5)
                 .map((s) => (
                   <li
-                    className="p-2 m-2 border-t-2"
+                    className="p-2 m-2 border-t-2 rounded-md hover:cursor-grab hover:bg-blue-400 "
                     key={s.word}
                     onClick={() => onClickSyn(s.word)}
                   >

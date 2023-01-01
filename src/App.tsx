@@ -2,8 +2,6 @@ import { setWord, fetchSyns } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
-import { useEffect } from "react";
-import { removeCard } from "../store/slices/word.slice";
 import CardsContainer from "./components/cardsContainer.component";
 
 function App() {
@@ -19,23 +17,22 @@ function App() {
     dispatch(fetchSyns(word));
   };
   return (
-    <div className="flex justify-center bg-zinc-100 h-screen items-center">
-      <div className=" items-center text-center w-36 rounded-bg p-4 m-3">
-        <form onSubmit={onSubmitHandler}>
-          <div className="flex flex-col rounded bg-zinc-200 justify-center">
-            <label>word-search</label>
-            <input
-              className="rounded text-center bg-white text-black"
-              type="text"
-              value={word}
-              onChange={onChangeHandler}
-              id="word"
-            ></input>
-            <button className="text-center bg-blue-500 rounded">SEARCH</button>
-          </div>
-        </form>
-        <CardsContainer />
-      </div>
+    <div className="flex justify-center bg-zinc-100 h-screen items-center rounded-bg p-4 m-3 text-center">
+      <form
+        onSubmit={onSubmitHandler}
+        className=" flex flex-col justify-center w-36"
+      >
+        <label className="">word-search</label>
+        <input
+          className="rounded text-center bg-white text-black "
+          type="text"
+          value={word}
+          onChange={onChangeHandler}
+          id="word"
+        ></input>
+        <button className="text-center bg-blue-500 rounded">SEARCH</button>
+      </form>
+      <CardsContainer />
     </div>
   );
 }
