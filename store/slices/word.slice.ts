@@ -5,12 +5,17 @@ export type synType = {
   score: number;
 };
 
-type stateType = {
-  word: string;
+export type oneCardType = {
+  headWord: string;
   syn: synType[];
   isLoading: boolean;
 };
 
+type stateType = {
+  word: string;
+  syn: synType[];
+  cards: oneCardType[];
+};
 export const fetchSyns = createAsyncThunk(
   "word/setSyn",
   async (word: string) => {
@@ -23,24 +28,41 @@ export const fetchSyns = createAsyncThunk(
 
 const wordSlice = createSlice({
   name: "word",
-  initialState: { word: "", syn: [], isLoading: false } as stateType,
+  initialState: { word: "", syn: [], isLoading: false, cards: [] } as stateType,
   reducers: {
     setWord: (state, action) => {
       state.word = action.payload;
     },
+
+    removeCard: (state, action) => {
+      state.cards.filter((item) => item.headWord === action.payload);
+    },
+    removeAllCards: (state) => {
+      state.cards = [];
+      state.syn = [];
+      state.word = "";
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSyns.fulfilled, (state, action) => {
-      state.syn = action.payload;
-      state.isLoading = false;
+      state.cards.pop();
+      state.cards.push({
+        headWord: state.word,
+        syn: action.payload,
+        isLoading: false,
+      });
     });
     builder.addCase(fetchSyns.pending, (state, action) => {
-      state.isLoading = true;
+      state.cards.push({
+        headWord: "",
+        syn: [],
+        isLoading: true,
+      });
     });
   },
 });
 
 const { actions, reducer } = wordSlice;
-export const { setWord } = actions;
+export const { setWord, removeCard, removeAllCards } = actions;
 const wordReducer = reducer;
 export default wordReducer;

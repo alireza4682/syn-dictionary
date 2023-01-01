@@ -1,24 +1,15 @@
-import Card from "./components/card.component";
 import { setWord, fetchSyns } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
 import { useEffect } from "react";
-import { addCard, removeCard } from "../store/slices/card.slice";
+import { removeCard } from "../store/slices/word.slice";
 import CardsContainer from "./components/cardsContainer.component";
 
 function App() {
   const word = useSelector((store: RootState) => store.word.word);
-  const syn = useSelector((store: RootState) => store.word.syn);
 
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(addCard(syn));
-    return () => {
-      removeCard(syn);
-    };
-  }, [syn]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setWord(e.target.value));
