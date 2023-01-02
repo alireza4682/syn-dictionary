@@ -5,7 +5,6 @@ import Card from "./card.component";
 
 const CardsContainer = () => {
   const cards = useSelector((store: RootState) => store.word.cards);
-  console.log(cards);
 
   return (
     <div>

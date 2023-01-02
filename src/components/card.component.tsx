@@ -1,4 +1,4 @@
-import { oneCardType } from "../../store/slices/word.slice";
+import { oneCardType, removeCard } from "../../store/slices/word.slice";
 import { setWord, fetchSyns } from "../../store/slices/word.slice";
 import { useAppDispatch } from "../../store/store";
 
@@ -9,6 +9,9 @@ const Card = (card: oneCardType) => {
     dispatch(setWord(newWord));
     dispatch(fetchSyns(newWord));
   };
+  const onClickClose = (word: string) => {
+    dispatch(removeCard(word));
+  };
 
   return (
     <div>
@@ -16,7 +19,15 @@ const Card = (card: oneCardType) => {
         <div>loading...</div>
       ) : (
         <div className="flex flex-col items-center justify-center">
-          <h2>{headWord}</h2>
+          <div className="">
+            <h2 className="">{headWord}</h2>
+            <div
+              onClick={() => onClickClose(headWord)}
+              className="hover:bg-red-500"
+            >
+              x
+            </div>
+          </div>
           <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
             {Array.isArray(syn) ? (
               syn

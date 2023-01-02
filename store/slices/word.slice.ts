@@ -35,8 +35,11 @@ const wordSlice = createSlice({
     },
 
     removeCard: (state, action) => {
-      state.cards.filter((item) => item.headWord === action.payload);
+      state.cards = state.cards.filter(
+        (item) => item.headWord !== action.payload
+      );
     },
+
     removeAllCards: (state) => {
       state.cards = [];
       state.syn = [];
