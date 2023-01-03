@@ -1,6 +1,6 @@
 import { setWord, fetchSyns } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
-import store, { useAppDispatch } from "../store/store";
+import { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
 import CardsContainer from "./components/cardsContainer.component";
 

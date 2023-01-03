@@ -11,6 +11,7 @@ const CardsContainer = () => {
   const onClickClose = (word: string) => {
     dispatch(removeCard(word));
   };
+
   return (
     <div className="flex flext-row">
       {cards.map((card: oneCardType) => (

@@ -38,7 +38,6 @@ const wordSlice = createSlice({
       state.cards = state.cards.filter(
         (item) => item.headWord !== action.payload
       );
-      console.log(state.cards);
     },
 
     removeAllCards: (state) => {

@@ -9,8 +9,6 @@ const Card = (card: oneCardType) => {
     dispatch(fetchSyns(newWord));
   };
 
-  //TODO move onClickClose to cardContainer
-
   return (
     <div>
       {isLoading ? (
