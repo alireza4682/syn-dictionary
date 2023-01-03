@@ -1,18 +1,29 @@
 import { useSelector } from "react-redux";
-import { oneCardType } from "../../store/slices/word.slice";
+import { oneCardType, removeCard } from "../../store/slices/word.slice";
 import { RootState } from "../../store/store";
+import { useAppDispatch } from "../../store/store";
 import Card from "./card.component";
 
 const CardsContainer = () => {
   const cards = useSelector((store: RootState) => store.word.cards);
+  const dispatch = useAppDispatch();
 
+  const onClickClose = (word: string) => {
+    dispatch(removeCard(word));
+  };
   return (
-    <div>
-      <div className="flex flext-row">
-        {cards.map((card: oneCardType) => (
+    <div className="flex flext-row">
+      {cards.map((card: oneCardType) => (
+        <div>
+          <div
+            onClick={() => onClickClose(card.headWord)}
+            className="hover:bg-red-500"
+          >
+            x
+          </div>
           <Card {...card} key={card.headWord} />
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
