@@ -9,6 +9,9 @@ const Card = (card: oneCardType) => {
     dispatch(setWord(newWord));
     dispatch(fetchSyns(newWord));
   };
+  const onClickClose = (word: string) => {
+    dispatch(removeCard(word));
+  };
 
   const onClickDelete = (word: string) => {
     dispatch(removeCard(word));
@@ -20,8 +23,20 @@ const Card = (card: oneCardType) => {
         <div>loading...</div>
       ) : (
         <div className="flex flex-col items-center justify-center">
+<<<<<<< HEAD
           <h2>{headWord}</h2>
           <span onClick={() => onClickDelete(headWord)}> x </span>
+=======
+          <div className="">
+            <h2 className="">{headWord}</h2>
+            <div
+              onClick={() => onClickClose(headWord)}
+              className="hover:bg-red-500"
+            >
+              x
+            </div>
+          </div>
+>>>>>>> 80d441388c430e43f2a0cd4d5aad2bcb0379801c
           <ul className="rounded p-2 m-2 shadow-sm bg-slate-300">
             {Array.isArray(syn) ? (
               syn
