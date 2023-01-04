@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+//TODO: make all this saga to have more controll
 export type synType = {
   word: string;
   score: number;
