@@ -1,3 +1,8 @@
-import { all, call } from "redux-saga/effects";
+import { all } from "redux-saga/effects";
+import { wordSaga } from "./slices/word.saga";
 
-export function* rootSaga() {}
+function* rootSaga() {
+  yield all([wordSaga]);
+}
+
+export default rootSaga;

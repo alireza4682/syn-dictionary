@@ -16,15 +16,15 @@ type stateType = {
   syn: synType[];
   cards: oneCardType[];
 };
-export const fetchSyns = createAsyncThunk(
-  "word/setSyn",
-  async (word: string) => {
-    const response = await fetch(
-      `https://api.datamuse.com/words?rel_syn=${word}`
-    );
-    return (await response.json()) as synType[];
-  }
-);
+// export const fetchSyns = createAsyncThunk(
+//   "word/setSyn",
+//   async (word: string) => {
+//     const response = await fetch(
+//       `https://api.datamuse.com/words?rel_syn=${word}`
+//     );
+//     return (await response.json()) as synType[];
+//   }
+// );
 
 const wordSlice = createSlice({
   name: "word",
@@ -45,27 +45,56 @@ const wordSlice = createSlice({
       state.syn = [];
       state.word = "";
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchSyns.fulfilled, (state, action) => {
+    onFetchSuccess: (state, action) => {
       state.cards.pop();
       state.cards.push({
         headWord: state.word,
         syn: action.payload,
         isLoading: false,
       });
-    });
-    builder.addCase(fetchSyns.pending, (state, action) => {
+    },
+    onFetchFail: (state, action) => {
       state.cards.push({
-        headWord: "",
+        headWord: state.word,
+        syn: action.payload,
+        isLoading: false,
+      });
+    },
+    onFetchStart: (state) => {
+      state.cards.push({
+        headWord: state.word,
         syn: [],
         isLoading: true,
       });
-    });
+    },
   },
+  // extraReducers: (builder) => {
+  //   builder.addCase(fetchSyns.fulfilled, (state, action) => {
+  //     state.cards.pop();
+  //     state.cards.push({
+  //       headWord: state.word,
+  //       syn: action.payload,
+  //       isLoading: false,
+  //     });
+  //   });
+  //   builder.addCase(fetchSyns.pending, (state, action) => {
+  //     state.cards.push({
+  //       headWord: "",
+  //       syn: [],
+  //       isLoading: true,
+  //     });
+  //   });
+  // },
 });
 
 const { actions, reducer } = wordSlice;
-export const { setWord, removeCard, removeAllCards } = actions;
+export const {
+  setWord,
+  removeCard,
+  removeAllCards,
+  onFetchStart,
+  onFetchFail,
+  onFetchSuccess,
+} = actions;
 const wordReducer = reducer;
 export default wordReducer;

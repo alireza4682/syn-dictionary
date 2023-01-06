@@ -1,4 +1,4 @@
-import { setWord, fetchSyns } from "../store/slices/word.slice";
+import { onFetchStart, setWord } from "../store/slices/word.slice";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
 import { RootState } from "../store/store";
@@ -14,7 +14,7 @@ function App() {
   };
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(fetchSyns(word));
+    dispatch(onFetchStart());
   };
 
   return (

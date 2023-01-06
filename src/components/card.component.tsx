@@ -1,12 +1,12 @@
-import { oneCardType } from "../../store/slices/word.slice";
-import { setWord, fetchSyns } from "../../store/slices/word.slice";
+import { oneCardType, onFetchStart } from "../../store/slices/word.slice";
+import { setWord } from "../../store/slices/word.slice";
 import { useAppDispatch } from "../../store/store";
 const Card = (card: oneCardType) => {
   const { headWord, syn, isLoading } = card;
   const dispatch = useAppDispatch();
   const onClickSyn = (newWord: string) => {
     dispatch(setWord(newWord));
-    dispatch(fetchSyns(newWord));
+    dispatch(onFetchStart());
   };
 
   return (
