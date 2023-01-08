@@ -18,7 +18,7 @@ function App() {
   };
 
   return (
-    <div className="flex justify-center bg-zinc-100 h-screen items-center rounded-bg p-4 m-3 text-center">
+    <div className="flex justify-center bg-rose-100 h-screen items-center rounded-bg  min-h-screen">
       <form
         onSubmit={onSubmitHandler}
         className=" flex flex-col justify-center w-36"

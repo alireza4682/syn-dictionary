@@ -14,7 +14,7 @@ const Card = (card: oneCardType) => {
       {isLoading ? (
         <div>loading...</div>
       ) : (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center font-mono">
           <div className="">
             <h2 className="">{headWord}</h2>
           </div>
