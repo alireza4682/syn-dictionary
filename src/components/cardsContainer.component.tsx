@@ -15,14 +15,14 @@ const CardsContainer = () => {
   return (
     <div className="flex flext-row">
       {cards.map((card: oneCardType) => (
-        <div>
+        <div key={card.headWord}>
           <div
             onClick={() => onClickClose(card.headWord)}
             className="hover:bg-red-500"
           >
             x
           </div>
-          <Card {...card} key={card.headWord} />
+          <Card {...card} />
         </div>
       ))}
     </div>

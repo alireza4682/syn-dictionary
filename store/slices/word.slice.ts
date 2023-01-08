@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-//TODO: make all this saga to have more controll
+import { createSlice } from "@reduxjs/toolkit";
 export type synType = {
   word: string;
   score: number;
@@ -26,26 +25,39 @@ type stateType = {
 //   }
 // );
 
+type TsetWordAction = {
+  type: string;
+  payload: string;
+};
+type TonSuccessAction = {
+  type: string;
+  payload: synType[];
+};
+type TonFailAction = {
+  type: string;
+  payload: Error;
+};
+
 const wordSlice = createSlice({
   name: "word",
-  initialState: { word: "", syn: [], isLoading: false, cards: [] } as stateType,
+  initialState: { word: "", syn: [], cards: [] } as stateType,
   reducers: {
-    setWord: (state, action) => {
+    setWord: (state: stateType, action: TsetWordAction) => {
       state.word = action.payload;
     },
 
-    removeCard: (state, action) => {
+    removeCard: (state: stateType, action: TsetWordAction) => {
       state.cards = state.cards.filter(
         (item) => item.headWord !== action.payload
       );
     },
 
-    removeAllCards: (state) => {
+    removeAllCards: (state: stateType) => {
       state.cards = [];
       state.syn = [];
       state.word = "";
     },
-    onFetchSuccess: (state, action) => {
+    onFetchSuccess: (state: stateType, action: TonSuccessAction) => {
       state.cards.pop();
       state.cards.push({
         headWord: state.word,
@@ -53,14 +65,14 @@ const wordSlice = createSlice({
         isLoading: false,
       });
     },
-    onFetchFail: (state, action) => {
+    onFetchFail: (state: stateType, action: TonFailAction) => {
       state.cards.push({
-        headWord: state.word,
-        syn: action.payload,
+        headWord: state.word + `error: ${action.payload}`,
+        syn: [],
         isLoading: false,
       });
     },
-    onFetchStart: (state) => {
+    onFetchStart: (state: stateType) => {
       state.cards.push({
         headWord: state.word,
         syn: [],

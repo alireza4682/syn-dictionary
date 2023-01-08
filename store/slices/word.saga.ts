@@ -1,28 +1,23 @@
-import { all, call, put, takeEvery } from "typed-redux-saga";
-import { onFetchFail, onFetchStart, onFetchSuccess } from "./word.slice";
+import { all, call, put, takeLatest } from "typed-redux-saga";
 
-type sagaActionType = {
-  type: string;
-  payload: any;
-};
-
-export function* fetchDatamuse(action: sagaActionType) {
+export function* fetchDatamuse(action) {
   try {
-    yield* put(onFetchStart());
+    yield* put({ type: "word/onFetchStart" });
+
     const response = yield* call(() =>
       fetch(`https://api.datamuse.com/words?rel_syn=${action.payload}`)
     );
-    const fetchPayload = response.json();
-    yield* put(onFetchSuccess(fetchPayload));
+    const fetchPayload = yield* call(() => response.json());
+    yield* put({ type: "word/onFetchSuccess", payload: fetchPayload });
   } catch (error) {
-    yield* put(onFetchFail(error as Error));
+    yield* put({ type: "word/onFetchFail", payload: error as Error });
   }
 }
 
 export function* onFetchWord() {
-  yield* takeEvery("word/onFetchStart", fetchDatamuse);
+  yield* takeLatest("word/fetchWord", fetchDatamuse);
 }
 
 export function* wordSaga() {
-  yield* all([onFetchWord]);
+  yield* call(onFetchWord);
 }

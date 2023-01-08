@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import createSagaMiddleware from "@redux-saga/core";
 import wordReducer from "./slices/word.slice";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,9 @@ const store = configureStore({
   reducer: {
     word: wordReducer,
   },
-  middleware: [saga],
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware({ thunk: false }).prepend(saga);
+  },
 });
 
 saga.run(rootSaga);
