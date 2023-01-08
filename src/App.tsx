@@ -14,7 +14,7 @@ function App() {
   };
   const onSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch({ type: "word/fetchWord" });
+    dispatch({ type: "word/fetchWord", payload: word });
   };
 
   return (

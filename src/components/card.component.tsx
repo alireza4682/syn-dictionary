@@ -6,7 +6,7 @@ const Card = (card: oneCardType) => {
   const dispatch = useAppDispatch();
   const onClickSyn = (newWord: string) => {
     dispatch(setWord(newWord));
-    dispatch({ type: "word/fetchWord", newWord });
+    dispatch({ type: "word/fetchWord", payload: newWord });
   };
 
   return (

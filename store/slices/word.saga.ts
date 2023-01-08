@@ -1,6 +1,7 @@
-import { all, call, put, takeLatest } from "typed-redux-saga";
+import { AnyAction } from "@reduxjs/toolkit";
+import { call, put, takeLatest } from "typed-redux-saga";
 
-export function* fetchDatamuse(action) {
+export function* fetchDatamuse(action: AnyAction) {
   try {
     yield* put({ type: "word/onFetchStart" });
 
