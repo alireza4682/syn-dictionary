@@ -46,10 +46,11 @@ const wordSlice = createSlice({
       state.word = action.payload;
     },
 
-    removeCard: (state: stateType, action: TsetWordAction) => {
-      state.cards = state.cards.filter(
-        (item) => item.headWord !== action.payload
-      );
+    removeCard: (
+      state: stateType,
+      action: { type: string; payload: number }
+    ) => {
+      state.cards = state.cards.filter((_, idx) => idx !== action.payload);
     },
 
     removeAllCards: (state: stateType) => {

@@ -1,5 +1,5 @@
 import { AnyAction } from "@reduxjs/toolkit";
-import { call, put, takeLatest } from "typed-redux-saga";
+import { call, put, takeEvery } from "typed-redux-saga";
 
 export function* fetchDatamuse(action: AnyAction) {
   try {
@@ -16,7 +16,7 @@ export function* fetchDatamuse(action: AnyAction) {
 }
 
 export function* onFetchWord() {
-  yield* takeLatest("word/fetchWord", fetchDatamuse);
+  yield* takeEvery("word/fetchWord", fetchDatamuse);
 }
 
 export function* wordSaga() {

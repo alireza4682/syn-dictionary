@@ -8,18 +8,15 @@ const CardsContainer = () => {
   const cards = useSelector((store: RootState) => store.word.cards);
   const dispatch = useAppDispatch();
 
-  const onClickClose = (word: string) => {
-    dispatch(removeCard(word));
+  const onClickClose = (idx: number) => {
+    dispatch(removeCard(idx));
   };
 
   return (
     <div className="flex flext-row">
-      {cards.map((card: oneCardType) => (
-        <div key={card.headWord}>
-          <div
-            onClick={() => onClickClose(card.headWord)}
-            className="hover:bg-red-500"
-          >
+      {cards.map((card: oneCardType, idx) => (
+        <div key={idx}>
+          <div onClick={() => onClickClose(idx)} className="hover:bg-red-500">
             x
           </div>
           <Card {...card} />
