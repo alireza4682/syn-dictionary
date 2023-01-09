@@ -18,20 +18,22 @@ function App() {
   };
 
   return (
-    <div className="flex justify-center bg-rose-100 h-screen items-center rounded-bg  min-h-screen">
+    <div className="flex justify-center items-center bg-rose-100 h-screen   min-h-screen">
       <form
         onSubmit={onSubmitHandler}
         className=" flex flex-col justify-center w-36"
       >
-        <label className="">word-search</label>
+        <label className="font-bold text-center">word-search</label>
         <input
-          className="rounded text-center bg-white text-black "
+          className="rounded  bg-white text-black font-semibold text-center"
           type="text"
           value={word}
           onChange={onChangeHandler}
           id="word"
         ></input>
-        <button className="text-center bg-blue-500 rounded">SEARCH</button>
+        <button className="text-center bg-blue-500 rounded font-medium">
+          SEARCH
+        </button>
       </form>
       <CardsContainer />
     </div>

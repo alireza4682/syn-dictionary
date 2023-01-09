@@ -13,10 +13,13 @@ const CardsContainer = () => {
   };
 
   return (
-    <div className="flex flext-row">
+    <div className="flex flex-col md:flex-row rounded-lg bg-rose-300 shadow-sm ">
       {cards.map((card: oneCardType, idx) => (
         <div key={idx}>
-          <div onClick={() => onClickClose(idx)} className="hover:bg-red-500">
+          <div
+            onClick={() => onClickClose(idx)}
+            className="items-center justify-center hover:bg-red-500"
+          >
             x
           </div>
           <Card {...card} />
