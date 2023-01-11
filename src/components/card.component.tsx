@@ -26,11 +26,16 @@ const Card = (card: oneCardType) => {
                 .filter((_, idx) => (!open ? idx < 5 : idx))
                 .map((s) => (
                   <li
-                    className="p-2 m-2 border-t-2 rounded-md hover:cursor-grab hover:bg-blue-400 "
+                    className="p-2 m-2 border-t-2 flex items-center justify-between "
                     key={s.word}
-                    onClick={() => onClickSyn(s.word)}
                   >
                     {s.word}
+                    <span
+                      className="  rounded-full hover:cursor-grab hover:bg-blue-400"
+                      onClick={() => onClickSyn(s.word)}
+                    >
+                      |||
+                    </span>
                   </li>
                 ))
             ) : (
