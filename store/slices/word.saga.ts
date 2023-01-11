@@ -1,7 +1,7 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import { call, put, takeEvery } from "typed-redux-saga";
 
-export function* fetchDatamuse(action: AnyAction) {
+function* fetchDatamuse(action: AnyAction) {
   try {
     yield* put({ type: "word/onFetchStart" });
 
@@ -15,7 +15,7 @@ export function* fetchDatamuse(action: AnyAction) {
   }
 }
 
-export function* onFetchWord() {
+function* onFetchWord() {
   yield* takeEvery("word/fetchWord", fetchDatamuse);
 }
 
