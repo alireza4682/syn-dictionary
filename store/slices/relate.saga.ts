@@ -1,31 +1,33 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import { call, fork, put, spawn, takeLatest } from "typed-redux-saga";
 
+function* fetches(endPoint: string, payload: string) {
+  const resoponse = yield* call(() =>
+    fetch(`https://api.datamuse.com/words?${endPoint}=${payload}`)
+  );
+  yield* call(() => resoponse.json());
+}
+
 function* fetchRelated(action: AnyAction) {
+  const payload = action.payload;
   try {
-    const rhyme = yield* fork(() =>
-      fetch(`https://api.datamuse.com/words?rel_rhy=${action.payload}`)
-    );
-    const apRhyme = yield* fork(() =>
-      fetch(`https://api.datamuse.com/words?rel_nry=${action.payload}`)
-    );
-    const soundsLike = yield* fork(() =>
-      fetch(`https://api.datamuse.com/words?rel_hom=${action.payload}`)
-    );
-    const partOf = yield* fork(() =>
-      fetch(`https://api.datamuse.com/words?rel_par=${action.payload}`)
-    );
-    const trigger = yield* fork(() =>
-      fetch(`https://api.datamuse.com/words?rel_par=${action.payload}`)
-    );
+    const rhyme = yield* fork(() => fetches("rel_rhy", payload));
+    const apRhyme = yield* fork(() => fetches("rel_nry)", payload));
+    const soundsLike = yield* fork(() => fetches("rel_hom", payload));
+    const partOf = yield* fork(() => fetches("rel_par", payload));
+    const trigger = yield* fork(() => fetches("rel_trg", payload));
   } catch (error) {}
 }
-const fetches = (endPoint: string, payload: string) => {
-  return fetch(`https://api.datamuse.com/words?${endPoint}=${payload}`);
-};
+
+function* fetchExtas(action: AnyAction) {
+  const { rhyme, apRhyme, soundsLike, partOf, trigger } = yield* call(
+    fetchRelated,
+    action
+  );
+}
 
 export function* onGetRelated() {
-  yield* takeLatest("word/fetchRelated");
+  yield* takeLatest("word/fetchRelated", fetchExtas);
 }
 
 export function* relateSaga() {
