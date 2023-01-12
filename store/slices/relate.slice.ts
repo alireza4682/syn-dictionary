@@ -17,10 +17,7 @@ type TsetWordAction = {
   type: string;
   payload: string;
 };
-type TsetIsOpen = {
-  type: string;
-  payload: boolean;
-};
+
 type TsetRelateAction = {
   type: string;
   payload: Trelate;
