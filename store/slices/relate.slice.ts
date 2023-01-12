@@ -33,7 +33,7 @@ const relateSlice = createSlice({
     setRelateWord: (state: relateState, action: TsetWordAction) => {
       state.word = action.payload;
     },
-    setIsOpen: (state: relateState, action: TsetIsOpen) => {
+    setIsOpen: function (state: relateState) {
       state.isOpen = !state.isOpen;
     },
     setRelateFetch: (state: relateState, action: TsetRelateAction) => {

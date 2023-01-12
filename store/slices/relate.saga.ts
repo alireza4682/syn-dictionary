@@ -2,16 +2,16 @@ import { AnyAction } from "@reduxjs/toolkit";
 import { all, call, fork, put, spawn, takeLatest } from "typed-redux-saga";
 
 function* fetches(endPoint: string, payload: string) {
-  const resoponse = yield call(() =>
+  const resoponse = yield* call(() =>
     fetch(`https://api.datamuse.com/words?${endPoint}=${payload}`)
   );
-  yield call(() => resoponse.json());
+  yield* call(() => resoponse.json());
 }
 
 function* fetchRelated(action: AnyAction) {
   const payload = action.payload;
   try {
-    const answer = yield* all([
+    yield* all([
       call(fetches, "rel_rhy", payload),
       call(fetches, "rel_nry", payload),
       call(fetches, "rel_hom", payload),
@@ -21,7 +21,12 @@ function* fetchRelated(action: AnyAction) {
   } catch (error) {}
 }
 
-function* fetchExtas(action: AnyAction) {}
+function* fetchExtas(action: AnyAction) {
+  yield* put({ type: "relate/isOpen" });
+  yield* put({ type: "relate/setRelateWord", payload: action.payload });
+  const answer = yield* call(fetchRelated, action);
+  yield* put({ type: "setRelateFetch", payload: answer });
+}
 
 export function* onGetRelated() {
   yield* takeLatest("word/fetchRelated", fetchExtas);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { oneCardType } from "../../store/slices/word.slice";
 import { setWord } from "../../store/slices/word.slice";
+import { setRelateWord } from "../../store/slices/relate.slice";
 import { useAppDispatch } from "../../store/store";
 const Card = (card: oneCardType) => {
   const { headWord, syn, isLoading } = card;
@@ -10,7 +11,9 @@ const Card = (card: oneCardType) => {
     dispatch(setWord(newWord));
     dispatch({ type: "word/fetchWord", payload: newWord });
   };
-
+  const onClickRel = (newWord: string) => {
+    dispatch(setRelateWord(newWord));
+  };
   return (
     <div>
       {isLoading ? (
@@ -36,6 +39,7 @@ const Card = (card: oneCardType) => {
                     >
                       |||
                     </span>
+                    <span onClick={() => onClickRel}>ooo</span>
                   </li>
                 ))
             ) : (
