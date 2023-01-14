@@ -2,6 +2,16 @@ import { useState } from "react";
 import { oneCardType } from "../../store/slices/word.slice";
 import { setWord } from "../../store/slices/word.slice";
 import { useAppDispatch } from "../../store/store";
+import Relate from "./relate.component";
+
+export const endPoints = {
+  rhyme: "rel_rhy",
+  nRhyme: "rel_nry",
+  soundsLike: "rel_hom",
+  partOf: "rel_par",
+  triggers: "rel_trg",
+} as const;
+
 const Card = (card: oneCardType) => {
   const { headWord, syn, isLoading } = card;
   const dispatch = useAppDispatch();
@@ -10,9 +20,12 @@ const Card = (card: oneCardType) => {
     dispatch(setWord(newWord));
     dispatch({ type: "word/fetchWord", payload: newWord });
   };
-  const onClickRel = (newWord: string) => {
+  const onClickRel = (newWord: string, endPoint: typeof endPoints) => {
     console.log(newWord);
-    dispatch({ type: "relate/fetchRelated", payload: newWord });
+    dispatch({
+      type: "relate/fetchRelated",
+      payload: { payload: newWord, endPoint: endPoint },
+    });
   };
   return (
     <div>
@@ -39,7 +52,7 @@ const Card = (card: oneCardType) => {
                     >
                       |||
                     </span>
-                    <div onClick={() => onClickRel(s.word)}>ooo</div>
+                    <Relate wordToGrab={s.word} />
                   </li>
                 ))
             ) : (

@@ -1,7 +1,5 @@
-const Relate = (word: string) => {
-  return (
-    <div>
-      <ul></ul>
-    </div>
-  );
+const Relate = ({ word }: any) => {
+  return <div></div>;
 };
+
+export default Relate;
