@@ -20,12 +20,16 @@ const Card = (card: oneCardType) => {
     dispatch(setWord(newWord));
     dispatch({ type: "word/fetchWord", payload: newWord });
   };
-  const onClickRel = (newWord: string, endPoint: typeof endPoints) => {
+  const onClickRel = (newWord: string, endpoint: typeof endPoints) => {
     console.log(newWord);
     dispatch({
       type: "relate/fetchRelated",
-      payload: { payload: newWord, endPoint: endPoint },
+      payload: newWord,
     });
+  };
+
+  const onClickRelBar = (newWord: string) => {
+    dispatch({ type: "relate/openMenu", payload: newWord });
   };
   return (
     <div>
@@ -52,7 +56,7 @@ const Card = (card: oneCardType) => {
                     >
                       |||
                     </span>
-                    <Relate wordToGrab={s.word} />
+                    <div onClick={() => onClickRelBar(s.word)}>ooo</div>
                   </li>
                 ))
             ) : (

@@ -21,8 +21,8 @@ function* fetchRelated(action: AnyAction) {
   } catch (error) {}
 }
 
-function* fetchExtas(action: AnyAction) {
-  yield* call(console.log,"dude")
+function* fetchExtras(action: AnyAction) {
+  yield* call(console.log, "dude");
   yield* put({ type: "relate/isOpen" });
   yield* put({ type: "relate/setRelateWord", payload: action.payload });
   const answer = yield* call(fetchRelated, action);
@@ -30,10 +30,9 @@ function* fetchExtas(action: AnyAction) {
 }
 
 export function* onGetRelated() {
-  yield* takeLatest("relate/fetchRelated", fetchExtas);
+  yield* takeLatest("relate/fetchRelated", fetchExtras);
 }
 
-export function* relateSaga() {
-  yield* call(console.log,"last")
+export default function* relateSaga() {
   yield* call(onGetRelated);
 }
