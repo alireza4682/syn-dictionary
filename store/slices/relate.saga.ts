@@ -1,38 +1,29 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import { all, call, fork, put, spawn, takeLatest } from "typed-redux-saga";
 
-function* fetches(endPoint: string, payload: string) {
+function* fetches(word: string, endpoint: string) {
   const resoponse = yield* call(() =>
-    fetch(`https://api.datamuse.com/words?${endPoint}=${payload}`)
+    fetch(`https://api.datamuse.com/words?${endpoint}=${word}`)
   );
   yield* call(() => resoponse.json());
 }
 
-function* fetchRelated(action: AnyAction) {
-  const payload = action.payload;
-  try {
-    yield* all([
-      call(fetches, "rel_rhy", payload),
-      call(fetches, "rel_nry", payload),
-      call(fetches, "rel_hom", payload),
-      call(fetches, "rel_par", payload),
-      call(fetches, "rel_trg", payload),
-    ]);
-  } catch (error) {}
-}
-
 function* fetchExtras(action: AnyAction) {
   yield* call(console.log, "dude");
-  yield* put({ type: "relate/isOpen" });
-  yield* put({ type: "relate/setRelateWord", payload: action.payload });
-  const answer = yield* call(fetchRelated, action);
+  const answer = yield* call(
+    fetches,
+    action.payload.word,
+    action.payload.endpoint
+  );
   yield* put({ type: "relate/setRelateFetch", payload: answer });
 }
 
 export function* onGetRelated() {
   yield* takeLatest("relate/fetchRelated", fetchExtras);
+
+  yield* call(console.log, "payload.word");
 }
 
-export default function* relateSaga() {
+export function* relateSaga() {
   yield* call(onGetRelated);
 }

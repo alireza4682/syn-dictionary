@@ -5,29 +5,15 @@ import { setWord } from "../../store/slices/word.slice";
 import { RootState, useAppDispatch } from "../../store/store";
 import Relate from "./relate.component";
 
-export const endPoints = {
-  rhyme: "rel_rhy",
-  nRhyme: "rel_nry",
-  soundsLike: "rel_hom",
-  partOf: "rel_par",
-  triggers: "rel_trg",
-} as const;
-
-const showRelateBar = useSelector((store: RootState) => store.relate.isOpen);
-
 const Card = (card: oneCardType) => {
   const { headWord, syn, isLoading } = card;
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const showRelateBar = useSelector((store: RootState) => store.relate.isOpen);
+
   const onClickSyn = (newWord: string) => {
     dispatch(setWord(newWord));
     dispatch({ type: "word/fetchWord", payload: newWord });
-  };
-  const onClickRel = (newWord: string, endpoint: typeof endPoints) => {
-    dispatch({
-      type: "relate/fetchRelated",
-      payload: newWord,
-    });
   };
 
   const onClickRelBar = (newWord: string) => {
@@ -59,8 +45,7 @@ const Card = (card: oneCardType) => {
                       |||
                     </span>
                     <div onClick={() => onClickRelBar(s.word)}>
-                      //TODO: ooo{" "}
-                      {showRelateBar ? <Relate word={s.word} /> : null}
+                      ooo {showRelateBar ? <Relate word={s.word} /> : null}
                     </div>
                   </li>
                 ))
