@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { oneCardType } from "../../store/slices/word.slice";
 import { setWord } from "../../store/slices/word.slice";
-import { useAppDispatch } from "../../store/store";
+import { RootState, useAppDispatch } from "../../store/store";
 import Relate from "./relate.component";
 
 export const endPoints = {
@@ -12,6 +13,8 @@ export const endPoints = {
   triggers: "rel_trg",
 } as const;
 
+const showRelateBar = useSelector((store: RootState) => store.relate.isOpen);
+
 const Card = (card: oneCardType) => {
   const { headWord, syn, isLoading } = card;
   const dispatch = useAppDispatch();
@@ -21,7 +24,6 @@ const Card = (card: oneCardType) => {
     dispatch({ type: "word/fetchWord", payload: newWord });
   };
   const onClickRel = (newWord: string, endpoint: typeof endPoints) => {
-    console.log(newWord);
     dispatch({
       type: "relate/fetchRelated",
       payload: newWord,
@@ -56,7 +58,10 @@ const Card = (card: oneCardType) => {
                     >
                       |||
                     </span>
-                    <div onClick={() => onClickRelBar(s.word)}>ooo</div>
+                    <div onClick={() => onClickRelBar(s.word)}>
+                      //TODO: ooo{" "}
+                      {showRelateBar ? <Relate word={s.word} /> : null}
+                    </div>
                   </li>
                 ))
             ) : (
