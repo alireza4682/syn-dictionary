@@ -11,6 +11,6 @@ function* onGetRelateMenu() {
   yield* takeLatest("relate/openMenu", openMenu);
 }
 
-export default function* relateMenuSaga() {
+export function* relateMenuSaga() {
   yield* call(onGetRelateMenu);
 }

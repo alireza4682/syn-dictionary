@@ -9,7 +9,6 @@ function* fetches(word: string, endpoint: string) {
 }
 
 function* fetchExtras(action: AnyAction) {
-  yield* call(console.log, "dude");
   const answer = yield* call(
     fetches,
     action.payload.word,
@@ -20,8 +19,6 @@ function* fetchExtras(action: AnyAction) {
 
 export function* onGetRelated() {
   yield* takeLatest("relate/fetchRelated", fetchExtras);
-
-  yield* call(console.log, "payload.word");
 }
 
 export function* relateSaga() {

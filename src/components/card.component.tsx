@@ -9,6 +9,7 @@ const Card = (card: oneCardType) => {
   const { headWord, syn, isLoading } = card;
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const [wordOpen, setWordOpen] = useState("");
   const showRelateBar = useSelector((store: RootState) => store.relate.isOpen);
 
   const onClickSyn = (newWord: string) => {
@@ -17,7 +18,12 @@ const Card = (card: oneCardType) => {
   };
 
   const onClickRelBar = (newWord: string) => {
-    dispatch({ type: "relate/openMenu", payload: newWord });
+    if (!showRelateBar) {
+      setWordOpen(newWord);
+      dispatch({ type: "relate/openMenu", payload: newWord });
+    } else {
+      dispatch({ type: "relate/setIsOpen", payload: false });
+    }
   };
   return (
     <div>
@@ -45,7 +51,10 @@ const Card = (card: oneCardType) => {
                       |||
                     </span>
                     <div onClick={() => onClickRelBar(s.word)}>
-                      ooo {showRelateBar ? <Relate word={s.word} /> : null}
+                      ooo{" "}
+                      {showRelateBar && wordOpen === s.word ? (
+                        <Relate word={s.word} />
+                      ) : null}
                     </div>
                   </li>
                 ))
