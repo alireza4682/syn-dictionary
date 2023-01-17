@@ -6,16 +6,17 @@ function* fetches(word: string, endpoint: string) {
     fetch(`https://api.datamuse.com/words?${endpoint}=${word}`)
   );
 
-  yield* call(console.log, resoponse);
-  const asnwer: Object[] | [] = yield* call(() => resoponse.json());
+  const answer: Object[] | [] = yield* call(() => resoponse.json());
 
-  return asnwer;
+  yield* call(console.log, answer);
+  return answer;
 }
 
 function* fetchExtras(action: AnyAction) {
   yield* call(console.log, action);
   const { word, endpoint } = action.payload;
   const answer = yield* call(fetches, word, endpoint);
+  yield* call(console.log, answer);
   yield* put({ type: "relate/setRelateFetch", payload: answer });
 }
 

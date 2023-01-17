@@ -17,15 +17,14 @@ const Relate = ({ word }: any) => {
   const relateList = useSelector((store: RootState) => store.relate.relates);
 
   const onClickRelate = (endpoint: string) => {
-    setOpen(false);
-    dispatch({ type: "relate/fetchRelated", payload: { word, endpoint } });
     setOpen(true);
+    dispatch({ type: "relate/fetchRelated", payload: { word, endpoint } });
   };
 
   return (
     <div>
       {Object.values(endPoints).map((k) => (
-        <div>
+        <div key={k}>
           <div onClick={() => onClickRelate(k)}>O</div>
           {open ? <RelateCard {...relateList} /> : null}
         </div>

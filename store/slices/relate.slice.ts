@@ -29,6 +29,7 @@ const relateSlice = createSlice({
     },
     setRelateFetch: (state: relateState, action: TsetRelateAction) => {
       state.relates = action.payload;
+      console.log(state.relates);
     },
   },
 });
