@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { oneCardType } from "../../store/slices/word.slice";
-import { setWord } from "../../store/slices/word.slice";
+import { oneCardType, setWord } from "../../store/slices/word.slice";
 import { RootState, useAppDispatch } from "../../store/store";
 import Relate from "./relate.component";
 
@@ -50,8 +49,8 @@ const Card = (card: oneCardType) => {
                     >
                       |||
                     </span>
-                    <div onClick={() => onClickRelBar(s.word)}>
-                      ooo{" "}
+                    <div>
+                      <div onClick={() => onClickRelBar(s.word)}>000</div>{" "}
                       {showRelateBar && wordOpen === s.word ? (
                         <Relate word={s.word} />
                       ) : null}

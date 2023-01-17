@@ -1,15 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-export type Trelate = {
-  rhyme: string[] | undefined;
-  nrhyme: string[] | undefined;
-  soundsLike: string[] | undefined;
-  partOf: string[] | undefined;
-  trigger: string[] | undefined;
-};
+import { synType } from "./word.slice";
 
 type relateState = {
   word: string;
-  relates: Trelate;
+  relates: synType[];
   isOpen: boolean;
 };
 
@@ -20,7 +14,7 @@ type TsetWordAction = {
 
 type TsetRelateAction = {
   type: string;
-  payload: Trelate;
+  payload: synType[];
 };
 
 const relateSlice = createSlice({

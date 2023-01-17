@@ -1,19 +1,21 @@
 import { AnyAction } from "@reduxjs/toolkit";
-import { all, call, fork, put, spawn, takeLatest } from "typed-redux-saga";
+import { call, put, takeLatest } from "typed-redux-saga";
 
 function* fetches(word: string, endpoint: string) {
   const resoponse = yield* call(() =>
     fetch(`https://api.datamuse.com/words?${endpoint}=${word}`)
   );
-  yield* call(() => resoponse.json());
+
+  yield* call(console.log, resoponse);
+  const asnwer: Object[] | [] = yield* call(() => resoponse.json());
+
+  return asnwer;
 }
 
 function* fetchExtras(action: AnyAction) {
-  const answer = yield* call(
-    fetches,
-    action.payload.word,
-    action.payload.endpoint
-  );
+  yield* call(console.log, action);
+  const { word, endpoint } = action.payload;
+  const answer = yield* call(fetches, word, endpoint);
   yield* put({ type: "relate/setRelateFetch", payload: answer });
 }
 
