@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store/store";
 import RelateCard from "./relateCard.component";
+import { FC } from "react";
 
 export const endPoints = {
   rhyme: "rel_rhy",
@@ -11,7 +12,7 @@ export const endPoints = {
   triggers: "rel_trg",
 } as const;
 
-const Relate = ({ word }: any) => {
+const Relate: FC<{ word: string }> = (word): JSX.Element => {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const relateList = useSelector((store: RootState) => store.relate.relates);

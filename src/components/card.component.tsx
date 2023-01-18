@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { oneCardType, setWord } from "../../store/slices/word.slice";
 import { RootState, useAppDispatch } from "../../store/store";
 import Relate from "./relate.component";
-
+//TODO: have to make new relate card to render in card container not here
 const Card = (card: oneCardType) => {
   const { headWord, syn, isLoading } = card;
   const dispatch = useAppDispatch();
@@ -17,12 +17,8 @@ const Card = (card: oneCardType) => {
   };
 
   const onClickRelBar = (newWord: string) => {
-    if (!showRelateBar) {
-      setWordOpen(newWord);
-      dispatch({ type: "relate/openMenu", payload: newWord });
-    } else {
-      dispatch({ type: "relate/setIsOpen", payload: false });
-    }
+    setWordOpen(newWord);
+    dispatch({ type: "relate/openMenu", payload: newWord });
   };
   return (
     <div>

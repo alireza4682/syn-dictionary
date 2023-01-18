@@ -4,16 +4,14 @@ const RelateCard = (list: synType[]) => {
   return (
     <ul>
       {Array.isArray(list) ? (
-        list
-          .filter((_, idx) => idx < 3)
-          .map((l) => (
-            <li
-              className="p-2 m-2 border-t-2 flex items-center justify-between "
-              key={l.word}
-            >
-              {l.word}
-            </li>
-          ))
+        list.map((l) => (
+          <li
+            className="p-2 m-2 border-t-2 flex items-center justify-between "
+            key={l.word}
+          >
+            {l.word}
+          </li>
+        ))
       ) : (
         <div>nope</div>
       )}

@@ -1,5 +1,5 @@
 import { AnyAction } from "@reduxjs/toolkit";
-import { all, call, put, takeLatest } from "typed-redux-saga";
+import { call, put, takeLatest } from "typed-redux-saga";
 
 function* openMenu(action: AnyAction) {
   yield* put({ type: "relate/setIsOpen", payload: false });
